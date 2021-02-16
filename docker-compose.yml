@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+  prestashop:
+    image: prestashop/prestashop:latest
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      PS_INSTALL_AUTO: 0
+      DB_SERVER: db
+      DB_USER: prestashop
+      DB_PASSWD: ps000
+      DB_NAME: prestashop
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
